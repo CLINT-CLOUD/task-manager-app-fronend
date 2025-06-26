@@ -5,13 +5,16 @@ import './Login.css';
 function Login({ onLogin }) {
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // 👁️ toggle
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+
+    const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
     try {
-      const res = await axios.post('/api/auth/login', form);
+      const res = await axios.post(`${API_URL}/api/auth/login`, form);
       localStorage.setItem('token', res.data.token);
       onLogin();
     } catch (err) {
@@ -22,6 +25,7 @@ function Login({ onLogin }) {
   return (
     <form onSubmit={handleSubmit} className="login-form">
       <h2>Login</h2>
+
       <input
         type="email"
         placeholder="Email"
