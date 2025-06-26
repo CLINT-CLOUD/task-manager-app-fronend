@@ -1,0 +1,260 @@
+/* === Layout === */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+}
+
+/* === Sidebar === */
+.sidebar {
+  width: 200px;
+  background-color: #1e2a38;
+  color: white;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  z-index: 1000;
+  overflow-y: auto;
+  border-right: 1px solid #2c3e50;
+}
+
+.user-dropdown {
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid #2c3e50;
+  cursor: pointer;
+  background-color: #1e2a38;
+}
+
+.user-label {
+  color: white;
+}
+
+.dropdown-menu {
+  padding: 1rem;
+  background-color: #2d3b52;
+  color: white;
+  border-top: 1px solid #2c3e50;
+}
+
+/* === Main === */
+.dashboard-main {
+  margin-left: 200px;
+  flex: 1;
+  min-height: 100vh;
+  overflow-y: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  width: calc(100% - 200px);
+  max-width: 100%;
+}
+
+/* === Task Section === */
+.task-section {
+  margin-bottom: 2rem;
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* === Kanban Board === */
+.kanban-board {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 1rem;
+}
+
+.kanban-column {
+  flex: 0 0 220px;
+  background-color: #fdfdfd;
+  padding: 0.8rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* === Task Card === */
+.task-card {
+  background-color: #fff;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.task-card select {
+  width: 100%;
+  padding: 0.4rem;
+  margin-top: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* === Charts === */
+.dashboard-charts {
+  padding: 1rem 0;
+  margin-top: 2rem;
+}
+
+.chart-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chart-header label {
+  font-weight: bold;
+}
+
+.user-filter-select {
+  padding: 0.4rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.chart-card {
+  flex: 1 1 46%;
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.chart-card h3 {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.chart-wrapper {
+  width: 100%;
+  height: 250px;
+}
+
+/* === Responsive Fix === */
+@media screen and (max-width: 768px) {
+  .charts-container {
+    flex-direction: column;
+  }
+
+  .chart-card {
+    flex: 1 1 100%;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .user-filter-select {
+    width: 100%;
+  }
+
+  .dashboard-main {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .user-dropdown {
+    width: auto;
+    border-bottom: none;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    z-index: 100;
+  }
+}
+/* === Task Section (Form) === */
+.task-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.task-section form {
+  width: 100%;
+  max-width: 500px;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* === Dashboard Charts === */
+.dashboard-charts {
+  padding: 1rem 0;
+  margin-top: 1rem;
+}
+
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.chart-card {
+  flex: 1 1 calc(50% - 0.5rem); /* Two charts side by side */
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 280px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.chart-wrapper {
+  width: 100%;
+  height: 300px;
+}
+
+/* === Responsive Fix for Small Screens === */
+@media screen and (max-width: 768px) {
+  .task-section form {
+    max-width: 100%;
+  }
+
+  .charts-container {
+    flex-direction: column;
+  }
+
+  .chart-card {
+    flex: 1 1 100%;
+  }
+}
