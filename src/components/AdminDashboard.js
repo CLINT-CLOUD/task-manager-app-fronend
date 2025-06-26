@@ -5,6 +5,8 @@ import { saveAs } from 'file-saver';
 import './AdminDashboard.css';
 import DashboardCharts from './DashboardCharts';
 
+const API = process.env.REACT_APP_API_URL;
+
 function AdminDashboard({ onLogout }) {
   const [form, setForm] = useState({ name: '', email: '', password: '', role: 'user' });
   const [tasks, setTasks] = useState([]);
@@ -28,7 +30,7 @@ function AdminDashboard({ onLogout }) {
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get('/api/tasks/all', {
+      const res = await axios.get(`${API}/api/tasks/all`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       if (Array.isArray(res.data)) {
@@ -44,7 +46,7 @@ function AdminDashboard({ onLogout }) {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('/api/admin/users', {
+      const res = await axios.get(`${API}/api/admin/users`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       if (Array.isArray(res.data)) {
@@ -61,7 +63,7 @@ function AdminDashboard({ onLogout }) {
   const handleUserCreate = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/auth/create-user', form, {
+      await axios.post(`${API}/api/auth/create-user`, form, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       showAlert('User created successfully', 'success');
@@ -74,7 +76,7 @@ function AdminDashboard({ onLogout }) {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`/api/tasks/${taskId}`, {
+      await axios.delete(`${API}/api/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setTasks(tasks.filter((task) => task._id !== taskId));
@@ -87,7 +89,7 @@ function AdminDashboard({ onLogout }) {
   const deleteUser = async (userId) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        await axios.delete(`/api/admin/users/${userId}`, {
+        await axios.delete(`${API}/api/admin/users/${userId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setUsers(users.filter((u) => u._id !== userId));
@@ -114,7 +116,7 @@ function AdminDashboard({ onLogout }) {
         assignedTo: editTask.assignedTo?.trim(),
       };
 
-      await axios.put(`/api/tasks/${editTask._id}`, updatedTask, {
+      await axios.put(`${API}/api/tasks/${editTask._id}`, updatedTask, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       showAlert('Task updated successfully', 'success');

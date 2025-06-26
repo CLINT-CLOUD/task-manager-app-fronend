@@ -6,6 +6,8 @@ import './Alert.css';
 import DashboardCharts from './DashboardCharts';
 import { LayoutDashboard, PlusCircle, FolderOpen, LogOut, Menu } from 'lucide-react';
 
+const API = process.env.REACT_APP_API_URL;
+
 function UserDashboard() {
   const [form, setForm] = useState({
     email: '',
@@ -29,7 +31,7 @@ function UserDashboard() {
   const fetchTasks = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('/api/tasks', {
+      const res = await axios.get(`${API}/api/tasks`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -62,7 +64,7 @@ function UserDashboard() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('/api/tasks', form, {
+      await axios.post(`${API}/api/tasks`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setForm({ email: '', title: '', description: '', priority: 'Medium', deadline: '' });
@@ -76,7 +78,7 @@ function UserDashboard() {
   const updateTaskStatus = async (taskId, newStatus) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.put(`/api/tasks/${taskId}`, { status: newStatus }, {
+      await axios.put(`${API}/api/tasks/${taskId}`, { status: newStatus }, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (newStatus === 'Completed') {

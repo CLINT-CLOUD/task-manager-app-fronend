@@ -4,6 +4,8 @@ import TaskForm from './TaskForm';
 import './Dashboard.css';
 import { jwtDecode } from 'jwt-decode';
 
+const API = process.env.REACT_APP_API_URL;
+
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [updatingTaskId, setUpdatingTaskId] = useState(null);
@@ -23,7 +25,7 @@ function Dashboard() {
 
   const fetchAssignedTasks = async () => {
     try {
-      const res = await axios.get('/api/tasks/assigned', {
+      const res = await axios.get(`${API}/api/tasks/assigned`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
 
@@ -46,7 +48,7 @@ function Dashboard() {
   const handleStatusChange = async (taskId, newStatus) => {
     try {
       setUpdatingTaskId(taskId);
-      await axios.put(`/api/tasks/${taskId}`, { status: newStatus }, {
+      await axios.put(`${API}/api/tasks/${taskId}`, { status: newStatus }, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       fetchAssignedTasks();
