@@ -31,7 +31,12 @@ function AdminDashboard({ onLogout }) {
       const res = await axios.get('/api/tasks/all', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-      setTasks(res.data);
+      if (Array.isArray(res.data)) {
+        setTasks(res.data);
+      } else {
+        console.error('Tasks data is not an array:', res.data);
+        setTasks([]);
+      }
     } catch (err) {
       console.error('Error fetching tasks:', err);
     }
@@ -42,7 +47,12 @@ function AdminDashboard({ onLogout }) {
       const res = await axios.get('/api/admin/users', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-      setUsers(res.data);
+      if (Array.isArray(res.data)) {
+        setUsers(res.data);
+      } else {
+        console.error('Users data is not an array:', res.data);
+        setUsers([]);
+      }
     } catch (err) {
       console.error('Error fetching users:', err);
     }
