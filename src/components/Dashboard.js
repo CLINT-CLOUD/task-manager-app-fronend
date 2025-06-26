@@ -26,9 +26,16 @@ function Dashboard() {
       const res = await axios.get('/api/tasks/assigned', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-      setTasks(res.data);
+
+      if (Array.isArray(res.data)) {
+        setTasks(res.data);
+      } else {
+        console.error('Expected an array but got:', res.data);
+        setTasks([]);
+      }
     } catch (err) {
       console.error('Error fetching tasks:', err);
+      setTasks([]);
     }
   };
 
@@ -57,7 +64,7 @@ function Dashboard() {
     COMPLETED: [],
   };
 
-  tasks.forEach(task => {
+  (Array.isArray(tasks) ? tasks : []).forEach(task => {
     grouped[task.status?.toUpperCase()]?.push(task);
   });
 
@@ -79,7 +86,6 @@ function Dashboard() {
 
       <main className="dashboard-main">
         <div className="task-section">
-         
           <TaskForm onTaskCreated={handleTaskCreated} />
         </div>
 
